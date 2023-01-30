@@ -1,0 +1,148 @@
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace std;
+using namespace __gnu_pbds;
+void __print(int x) { cerr << x; }
+void __print(long x) { cerr << x; }
+void __print(long long x) { cerr << x; }
+void __print(unsigned x) { cerr << x; }
+void __print(unsigned long x) { cerr << x; }
+void __print(unsigned long long x) { cerr << x; }
+void __print(float x) { cerr << x; }
+void __print(double x) { cerr << x; }
+void __print(long double x) { cerr << x; }
+void __print(char x) { cerr << '\'' << x << '\''; }
+void __print(const char *x) { cerr << '\"' << x << '\"'; }
+void __print(const string &x) { cerr << '\"' << x << '\"'; }
+void __print(bool x) { cerr << (x ? "true" : "false"); }
+
+template <typename T, typename V>
+void __print(const pair<T, V> &x)
+{
+	cerr << '{';
+	__print(x.first);
+	cerr << ',';
+	__print(x.second);
+	cerr << '}';
+}
+template <typename T>
+void __print(const T &x)
+{
+	int f = 0;
+	cerr << '{';
+	for (auto &i : x)
+		cerr << (f++ ? "," : ""), __print(i);
+	cerr << "}";
+}
+void _print() { cerr << "]\n"; }
+template <typename T, typename... V>
+void _print(T t, V... v)
+{
+	__print(t);
+	if (sizeof...(v))
+		cerr << ", ";
+	_print(v...);
+}
+#ifndef ONLINE_JUDGE
+#define debug(x...)               \
+	cerr << "[" << #x << "] = ["; \
+	_print(x)
+#else
+#define debug(x...)
+#endif
+#define IOS                  \
+	ios::sync_with_stdio(0); \
+	cin.tie(0);              \
+	cout.tie(0);
+#define endl "\n"
+#define YES printf("YES\n")
+#define NO printf("NO\n")
+#define YES printf("YES\n")
+#define NO printf("NO\n")
+#define NOo printf("-1\n")
+#define srt(x) sort(x.begin(), x.end())
+#define rsrt(x) sort(x.rbegin(), x.rend())
+#define ull unsigned long long
+#define ll long long
+#define pb push_back
+#define ff first
+#define ss second
+#define all(x) x.begin(), x.end()
+#define pii pair<int, int>
+#define piii pair<int, pii>
+#define vpll vector<pair<ll, ll>>
+#define min_heap priority_queue<int, vector<int>, greater<int>>
+const ll mod = 1000000007;
+const ll INF = 1e9;
+const ll N = 10000007;
+#define vll vector<long long>
+#define mll map<long long, long long>
+void setIO(string name = "") { // name is nonempty for USACO file I/O
+	ios_base::sync_with_stdio(0); cin.tie(0); // see Fast Input & Output
+	if(name.size()){
+		freopen((name+".in").c_str(), "r", stdin); // see Input & Output
+		freopen((name+".out").c_str(), "w", stdout);
+	}
+}
+ll adj[105][105];
+vll vis;
+ll anss = 0;
+void dfs(ll node, ll n)
+{
+	anss++;
+	vis[node] = 1;
+	for (ll i = 0; i < n;i++)
+	{
+		if (!vis[i] && adj[node][i])
+		{
+			dfs(i,n);
+		}
+	}
+}
+void solve()
+{
+
+	ll ans = INF, m, j, ct = 0, u = 0, v, i, b = 0, wt, n, k = -1, source, des = -1, l = 0;
+	cin >> n >> m;
+	if (!n && !m)
+		exit(0);
+	vpll edge;
+	memset(adj,false,sizeof(adj));
+	for (i = 1; i <= m; i++)
+	{
+		cin >> u >> v;
+		adj[u][v] = 1;
+		adj[v][u] = 1;
+		edge.push_back({u,v});
+	}
+	for(auto it : edge)
+	{
+		vis.assign(n+1,0);
+		anss = 0;
+		adj[it.ff][it.ss] = 0;
+		adj[it.ss][it.ff] = 0;
+		dfs(0,n);
+		if(anss!=n)
+		{
+			cout<<"Yes"<<endl;
+	        return;
+		}
+		adj[it.ff][it.ss] = 1;
+		adj[it.ss][it.ff] = 1;
+	}
+	cout<<"No"<<endl;
+}
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	setIO();
+	ll t = 10;
+	// cin >> t;
+	while (t--)
+	{
+		solve();
+	}
+}
