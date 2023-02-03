@@ -83,17 +83,20 @@ vll d(1000005, 0), s(1000005, 0);
 ll len = 0, ct = 0, cancel, test = 0, path = -1;
 void dfs(ll u, ll par)
 {
-	//debug(u,par);//top down
+	
+	//debug(u,par);//top down //sobcall print hobe
 	for (auto child : graph[u])
 	{
 		if (child == par)
 			continue;
+		//debug(u,par);//ei call a child node kokon e ashbe na(parent,grandparent)
+		//debug(child,par);//child , grand child
 		//debug(child,u);//top down (shudhu first call ta hobe na koron oi call loop er baire hoise)
-		dfs(child, u);
-		//debug(child,u);//bottom up(shudhu first call ta hobe na koron oi call loop er baire hoise)
-		//debug(u,par);//(u er parent so always leaf node hishaber baire)
+		dfs(chid,u);
+		//debug(child,u);//bottom up(shudhu first call ta hobe na koron oi call loop er baire hoise)(parent,grandparent)
+		//debug(u,par);//ei call a child node kokon e ashbe na
 	}
-	//debug(u,par);//bottom up
+	//debug(u,par);//bottom up //sobcall print hobe
 }
 
 void solve()
